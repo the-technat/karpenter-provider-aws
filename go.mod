@@ -50,7 +50,7 @@ require (
 	sigs.k8s.io/yaml v1.6.0
 )
 
-replace sigs.k8s.io/karpenter v1.13.0 => github.com/the-technat/karpenter v1.13.1-rc2
+replace sigs.k8s.io/karpenter v1.13.0 => github.com/the-technat/karpenter v1.14.0-alpha.0
 
 require (
 	github.com/Masterminds/semver/v3 v3.4.0 // indirect
