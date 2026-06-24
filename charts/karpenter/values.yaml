@@ -124,7 +124,7 @@ controller:
   containerName: controller
   image:
     # -- Repository path to the controller image.
-    repository: public.ecr.aws/karpenter/controller
+    repository: ghcr.io/the-technat/karpenter-provider-aws/controller
     # -- Tag of the controller image.
     tag: 1.13.0
     # -- SHA256 digest of the controller image.

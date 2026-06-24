@@ -186,6 +186,13 @@ delete: ## Delete the controller from your ~/.kube/config cluster
 docgen: ## Generate docs
 	KARPENTER_CORE_DIR=$(KARPENTER_CORE_DIR) $(WITH_GOFLAGS) ./hack/docgen.sh
 
+build:
+	KO_DOCKER_REPO=ghcr.io/the-technat/karpenter-provider-aws ko publish -B -t "${KARPENTER_VERSION}" ./cmd/controller
+	yq e -i ".controller.image.repository = \"ghcr.io/the-technat/karpenter-provider-aws/controller\"" charts/karpenter/values.yaml
+	yq e -i ".controller.image.tag = \"${KARPENTER_VERSION}\"" charts/karpenter/values.yaml
+	helm package "./charts/karpenter" --version "${KARPENTER_VERSION}"
+	helm push "karpenter-${KARPENTER_VERSION}.tgz" "oci://ghcr.io/the-technat/karpenter-provider-aws/chart"
+
 codegen: ## Auto generate files based on AWS APIs response
 	$(WITH_GOFLAGS) ./hack/codegen.sh
 
